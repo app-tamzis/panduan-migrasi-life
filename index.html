@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Migrasi M-TAMZIS ke LIFE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-top: #eef7f5;
+            --bg-bottom: #f8fbff;
+            --surface: #ffffff;
+            --surface-soft: #f2f8f7;
+            --text-main: #0f172a;
+            --text-muted: #4b5563;
+            --accent: #0d9488;
+            --accent-strong: #0f766e;
+            --line: #dbe7e3;
+            --shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(1200px 500px at -10% -20%, #d8f3ee 0%, rgba(216, 243, 238, 0) 72%),
+                radial-gradient(1000px 420px at 110% -12%, #e2ecff 0%, rgba(226, 236, 255, 0) 70%),
+                linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: min(980px, calc(100% - 32px));
+            margin: 24px auto 48px;
+            animation: page-in 0.7s ease-out;
+        }
+
+        .hero {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 18px;
+        }
+
+        .intro,
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: clamp(1rem, 1.7vw, 1.15rem);
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .intro img {
+            width: min(560px, 100%);
+            margin: 8px auto 0;
+            display: block;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: var(--surface-soft);
+        }
+
+        .img-compact {
+            width: min(170px, 100%);
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .chip {
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--accent-strong);
+            background: #d9f7f2;
+            border: 1px solid #bce9e1;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .requirements {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .requirements li {
+            background: var(--surface-soft);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .requirements strong {
+            color: var(--accent-strong);
+            margin-right: 8px;
+        }
+
+        .steps {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            counter-reset: migrasi-step;
+        }
+
+        .steps li {
+            counter-increment: migrasi-step;
+            display: grid;
+            grid-template-columns: 36px 1fr;
+            gap: 12px;
+            align-items: start;
+            padding: 13px 14px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #ffffff;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: step-in 0.45s ease-out forwards;
+        }
+
+        .steps li::before {
+            content: counter(migrasi-step);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(160deg, var(--accent), var(--accent-strong));
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 18px rgba(13, 148, 136, 0.25);
+        }
+
+        .steps li p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .steps li figure {
+            margin-top: 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: var(--surface-soft);
+        }
+
+        .steps li figure img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .figure-compact {
+            width: min(140px, 100%);
+        }
+
+        .steps li:nth-child(1) { animation-delay: 0.04s; }
+        .steps li:nth-child(2) { animation-delay: 0.08s; }
+        .steps li:nth-child(3) { animation-delay: 0.12s; }
+        .steps li:nth-child(4) { animation-delay: 0.16s; }
+        .steps li:nth-child(5) { animation-delay: 0.20s; }
+        .steps li:nth-child(6) { animation-delay: 0.24s; }
+        .steps li:nth-child(7) { animation-delay: 0.28s; }
+        .steps li:nth-child(8) { animation-delay: 0.32s; }
+        .steps li:nth-child(9) { animation-delay: 0.36s; }
+        .steps li:nth-child(10) { animation-delay: 0.40s; }
+        .steps li:nth-child(11) { animation-delay: 0.44s; }
+        .steps li:nth-child(12) { animation-delay: 0.48s; }
+        .steps li:nth-child(13) { animation-delay: 0.52s; }
+        .steps li:nth-child(14) { animation-delay: 0.56s; }
+
+        @keyframes page-in {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes step-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                width: min(980px, calc(100% - 18px));
+                margin: 12px auto 24px;
+            }
+
+            .hero,
+            .intro,
+            .panel {
+                border-radius: 18px;
+                padding: 16px;
+            }
+
+            .steps li {
+                grid-template-columns: 32px 1fr;
+                gap: 10px;
+                padding: 11px;
+            }
+
+            .steps li::before {
+                width: 32px;
+                height: 32px;
+                border-radius: 9px;
+                font-size: 0.88rem;
+            }
+
+            .img-compact {
+                width: min(115px, 35vw);
+            }
+
+            .figure-compact {
+                width: min(105px, 32.5vw);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero" aria-label="Header panduan migrasi">
+            <img src="asset/header.png" alt="Header panduan migrasi M-TAMZIS ke LIFE">
+        </section>
+
+        <section class="intro" aria-label="Pengantar migrasi">
+            <p>Berikut panduan dan langkah-langkah agar proses migrasi berjalan dari M_TAMZIS ke LIFE berjalan lancar.</p>
+            <img src="asset/ilust_migrasi_trans.png" alt="Ilustrasi proses migrasi dari M-TAMZIS ke LIFE" class="img-compact">
+        </section>
+
+        <section class="panel" aria-label="Syarat migrasi">
+            <div class="title-row">
+                <span class="chip">Wajib</span>
+                <h2>Syarat Migrasi</h2>
+            </div>
+            <ol class="requirements">
+                <li><strong>1.</strong>M-TAMZIS sudah terpasang pada perangkat dan sudah terdaftar dengan status Aktif.</li>
+                <li><strong>2.</strong>Versi M-TAMZIS minimal 1.11.6</li>
+            </ol>
+        </section>
+
+        <section class="panel" aria-label="Langkah-langkah migrasi">
+            <div class="title-row">
+                <span class="chip">Panduan</span>
+                <h2>Langkah-langkah Migrasi</h2>
+            </div>
+            <ol class="steps">
+                <li><p>Buka M-TAMZIS.</p></li>
+                <li><p>Masuk ke halaman utama M-TAMZIS menggunakan sidik jari atau PIN yang terdaftar.</p></li>
+                <li><p>Jika LIFE belum terpasang pada perangkat lanjut ke langkah 5.</p></li>
+                <li><p>Jika LIFE sudah terpasang pada perangkat lanjut ke langkah 8.</p></li>
+                <li>
+                    <div>
+                        <p>Informasi migrasi akan tampil, seperti pada gambar. Klik tombol Unduh LIFE di Play Store.</p>
+                        <figure class="figure-compact">
+                            <img src="asset/unduh_life.jpg" alt="Contoh tampilan tombol Unduh LIFE di Play Store">
+                        </figure>
+                    </div>
+                </li>
+                <li><p>Akan masuk ke Play Store dan klik Pasang/Install.</p></li>
+                <li><p>Selesai Pasang/Install kembali lagi ke M-TAMZIS.</p></li>
+                <li>
+                    <div>
+                        <p>Informasi migrasi akan tampil, seperti contoh pada gambar. Klik tombol Mulai Migrasi.</p>
+                        <figure>
+                            <img src="asset/tahap_migrasi.png" alt="Contoh tahapan migrasi dengan tombol Mulai Migrasi">
+                        </figure>
+                    </div>
+                </li>
+                <li><p>Konfirmasi proses migrasi menggunakan sidik jari atau PIN.</p></li>
+                <li><p>Setelah konfirmasi berhasil, Anda akan diarahkan masuk ke LIFE.</p></li>
+                <li><p>Pastikan data M-TAMZIS Anda sudah benar.</p></li>
+                <li><p>Masukkan nomor HP aktif Anda.</p></li>
+                <li><p>Buat PIN baru untuk akun LIFE. Disarankan untuk menggunakan PIN yang berbeda dari PIN M-TAMZIS.</p></li>
+                <li><p>Migrasi selesai, LIFE siap digunakan.</p></li>
+            </ol>
+        </section>
+    </main>
+</body>
+</html>
