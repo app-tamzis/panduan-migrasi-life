@@ -192,6 +192,98 @@
             height: auto;
         }
 
+        .preview-trigger {
+            cursor: zoom-in;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .preview-trigger:hover {
+            transform: scale(1.03);
+            filter: brightness(1.03);
+        }
+
+        .preview-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.68);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 999;
+        }
+
+        .preview-modal.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .preview-dialog {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(18px, 5vw, 44px);
+            background: transparent;
+            transform: scale(0.995);
+            transition: transform 0.2s ease;
+        }
+
+        .preview-modal.open .preview-dialog {
+            transform: scale(1);
+        }
+
+        .preview-frame {
+            position: relative;
+            max-width: min(900px, 100%);
+            max-height: 100%;
+        }
+
+        .preview-dialog img {
+            width: auto;
+            height: auto;
+            display: block;
+            max-width: min(900px, calc(100vw - 88px));
+            max-height: calc(100vh - 88px);
+            object-fit: contain;
+            background: transparent;
+            cursor: zoom-out;
+            border-radius: 12px;
+        }
+
+        .preview-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(2, 6, 23, 0.75);
+            color: #ffffff;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-close:hover {
+            background: rgba(2, 6, 23, 0.9);
+        }
+
+        .preview-close:focus-visible {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
+        }
+
         .figure-compact {
             width: min(140px, 100%);
         }
@@ -301,7 +393,7 @@
                     <div>
                         <p>Informasi migrasi akan tampil, seperti pada gambar. Klik tombol <strong>Unduh LIFE di Play Store</strong>.</p>
                         <figure class="figure-compact">
-                            <img src="asset/unduh_life.jpg" alt="Contoh tampilan tombol Unduh LIFE di Play Store">
+                            <img src="asset/unduh_life.jpg" alt="Contoh tampilan tombol Unduh LIFE di Play Store" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar Unduh LIFE">
                         </figure>
                     </div>
                 </li>
@@ -310,8 +402,8 @@
                 <li>
                     <div>
                         <p>Informasi migrasi akan tampil, seperti contoh pada gambar. Klik tombol <strong>Mulai Migrasi</strong>.</p>
-                        <figure>
-                            <img src="asset/tahap_migrasi.png" alt="Contoh tahapan migrasi dengan tombol Mulai Migrasi">
+                        <figure class="figure-compact">
+                            <img src="asset/unduh_life.jpg" alt="Contoh tahapan migrasi dengan tombol Mulai Migrasi" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar Mulai Migrasi">
                         </figure>
                     </div>
                 </li>
@@ -324,5 +416,63 @@
             </ol>
         </section>
     </main>
+
+    <div class="preview-modal" id="imagePreviewModal" aria-hidden="true">
+        <div class="preview-dialog" role="dialog" aria-modal="true" aria-label="Preview gambar unduh LIFE">
+            <div class="preview-frame">
+                <button type="button" class="preview-close" id="imagePreviewClose" aria-label="Tutup preview">&times;</button>
+                <img id="imagePreviewContent" src="" alt="Preview gambar">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const previewTargets = document.querySelectorAll('.preview-trigger');
+            const modal = document.getElementById('imagePreviewModal');
+            const modalImg = document.getElementById('imagePreviewContent');
+            const closeBtn = document.getElementById('imagePreviewClose');
+
+            function openPreview(src, alt) {
+                modalImg.src = src;
+                modalImg.alt = alt || 'Preview gambar';
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+
+            function closePreview() {
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                modalImg.src = '';
+            }
+
+            previewTargets.forEach(function (img) {
+                img.addEventListener('click', function () {
+                    openPreview(img.src, img.alt);
+                });
+
+                img.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openPreview(img.src, img.alt);
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', closePreview);
+
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal || event.target === modalImg) {
+                    closePreview();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.classList.contains('open')) {
+                    closePreview();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
