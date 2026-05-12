@@ -51,7 +51,7 @@
             border: 1px solid var(--line);
             border-radius: 26px;
             box-shadow: var(--shadow);
-            padding: 18px;
+            padding: 0px;
             margin-bottom: 20px;
         }
 
@@ -185,6 +185,22 @@
             overflow: hidden;
             border: 1px solid var(--line);
             background: var(--surface-soft);
+        }
+
+        .step-gallery {
+            display: grid;
+            gap: 12px;
+        }
+
+        .step-gallery-side {
+            grid-template-columns: repeat(2, auto);
+            align-items: start;
+            justify-content: center;
+        }
+
+        .figure-center {
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .steps li figure img {
@@ -328,7 +344,11 @@
                 margin: 12px auto 24px;
             }
 
-            .hero,
+            .hero {
+                border-radius: 18px;
+                padding: 0px;
+            }
+
             .intro,
             .panel {
                 border-radius: 18px;
@@ -355,6 +375,7 @@
             .figure-compact {
                 width: min(105px, 32.5vw);
             }
+
         }
     </style>
 </head>
@@ -394,26 +415,40 @@
                 <li>
                     <div>
                         <p>Informasi migrasi akan tampil, seperti pada gambar. Klik tombol <strong>Unduh LIFE di Play Store</strong>.</p>
-                        <figure class="figure-compact">
-                            <img src="asset/unduh_life.jpg" alt="Contoh tampilan tombol Unduh LIFE di Play Store" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar Unduh LIFE">
-                        </figure>
+                        <div class="step-gallery">
+                            <figure class="figure-center">
+                                <img src="asset/banner_migrasi.jpg" alt="Banner informasi migrasi pada M-TAMZIS" class="preview-trigger" tabindex="0" aria-label="Buka preview banner migrasi">
+                            </figure>
+                            <figure class="figure-compact figure-center">
+                                <img src="asset/unduh_life.jpg" alt="Contoh tampilan tombol Unduh LIFE di Play Store" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar Unduh LIFE">
+                            </figure>
+                        </div>
                     </div>
                 </li>
                 <li><p>Akan masuk ke Play Store dan klik <strong>Pasang/Install</strong>.</p></li>
                 <li><p>Selesai <strong>Pasang/Install</strong> kembali lagi ke M-TAMZIS.</p></li>
                 <li>
                     <div>
-                        <p>Informasi migrasi akan tampil, seperti contoh pada gambar. Klik tombol <strong>Mulai Migrasi</strong>.</p>
-                        <figure class="figure-compact">
-                            <img src="asset/unduh_life.jpg" alt="Contoh tahapan migrasi dengan tombol Mulai Migrasi" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar Mulai Migrasi">
-                        </figure>
+                        <p>Informasi migrasi akan tampil, seperti contoh pada gambar. Klik tombol <strong>Lanjutkan - Mulai Migrasi</strong>.</p>
+                        <div class="step-gallery step-gallery-side">
+                            <figure class="figure-compact">
+                                <img src="asset/mulai_migrasi1.jpg" alt="Contoh tampilan awal proses mulai migrasi" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar mulai migrasi tahap 1">
+                            </figure>
+                            <figure class="figure-compact">
+                                <img src="asset/mulai_migrasi2.jpg" alt="Contoh tampilan lanjutan proses mulai migrasi" class="preview-trigger" tabindex="0" aria-label="Buka preview gambar mulai migrasi tahap 2">
+                            </figure>
+                        </div>
                     </div>
                 </li>
                 <li><p>Konfirmasi proses migrasi menggunakan sidik jari atau PIN.</p></li>
                 <li><p>Setelah konfirmasi berhasil, Anda akan diarahkan masuk ke LIFE.</p></li>
-                <li><p>Pastikan data M-TAMZIS Anda sudah benar.</p></li>
-                <li><p>Masukkan nomor HP aktif Anda.</p></li>
-                <li><p>Buat PIN baru untuk akun LIFE.<br />Disarankan untuk menggunakan PIN yang berbeda dari PIN M-TAMZIS.</p></li>
+                <p>&nbsp;</p>
+                <h3>Masuk LIFE</h3>
+                <li><p>Pilih Bahasa. Klik <strong>Lanjutkan</strong></p></li>
+                <li><p>Syarat dan Ketentuan. Klik <strong>Lanjutkan</strong></p></li>
+                <li><p>Pastikan data M-TAMZIS Anda sudah benar. Klik <strong>Lanjutkan Proses Migrasi</strong></p></li>
+                <li><p>Masukkan nomor HP aktif Anda. Klik <strong>Lanjutkan</strong></p></li>
+                <li><p>Buat PIN baru untuk akun LIFE.<br />Disarankan untuk menggunakan PIN yang berbeda dari PIN M-TAMZIS.<br/>Klik <strong>Lanjutkan</strong></p></li>
                 <li><p>Migrasi selesai, LIFE siap digunakan.</p></li>
             </ol>
         </section>
